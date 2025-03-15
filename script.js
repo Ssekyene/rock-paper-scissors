@@ -1,8 +1,5 @@
-let humanScore = 0;
-let computerScore = 0;
-
 /*
-a function that returns a random choice that is either
+returns a random choice that is either
 rock, paper or scissors
 */
 function getComputerChoice() {
@@ -15,17 +12,20 @@ function getComputerChoice() {
 
 
 /*
-a function that returns a choice made by user
+returns a choice made by user
 */
 function getHumanChoice() { 
     return(prompt('Enter "rock", "paper" or "scissors":'));
-    }
+}
+
+
 
 /*
-a function that runs round comparing the humanChoice and computerChoice
+compares the humanChoice and computerChoice
 and prints the result to the console
 */
 function playRound(humanChoice, computerChoice) {
+    printChoices(humanChoice, computerChoice);
     const humanSelection = humanChoice.toLowerCase();
     if (humanSelection === "rock") {
         if (computerChoice === "scissors") {
@@ -61,10 +61,24 @@ function playRound(humanChoice, computerChoice) {
 
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-console.log(`You: ${humanSelection}\nComputer: ${computerSelection}\n\n`);
+function printChoices(humanSelection, computerSelection) {
+    console.log(`You: ${humanSelection}\nComputer: ${computerSelection}\n\n`);
+}
 
-playRound(humanSelection, computerSelection);
+/*
+executes 5 rounds of playRound and prints the overall results
+*/
+function playGame() {    
+    for(let i = 0; i < 5; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+    if (humanScore > computerScore) console.log("%c\n\nCongratulations!!! You Won!", "font-size: 24px; font-weight: 900; color: green");
+    else if (humanScore < computerScore) console.log("%c\n\nYou Lost", "font-size: 24px; font-weight: 900; color: red");
+    else console.log("%c\n\nIt's a tie", "font-size: 24px; font-weight: 900; color: orange");
 
-console.log(`\nYour Scores: ${humanScore}\nComputer's Scores: ${computerScore}`);
+    console.log(`\nYour Scores: ${humanScore}\nComputer's Scores: ${computerScore}`);
+}
+
+let humanScore = 0; 
+let computerScore = 0;
+playGame();
