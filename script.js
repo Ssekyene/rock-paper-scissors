@@ -80,8 +80,12 @@ function playGame() {
 }
 
 const playBtn = document.querySelector("#play");
+const clearBtn = document.querySelector("#clear");
 
 
 let humanScore = 0; 
 let computerScore = 0;
 playBtn.addEventListener("click", playGame);
+clearBtn.addEventListener("click", function () {
+    console.clear();
+});
