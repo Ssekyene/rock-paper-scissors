@@ -79,6 +79,9 @@ function playGame() {
     console.log(`\nYour Scores: ${humanScore}\nComputer's Scores: ${computerScore}`);
 }
 
+const playBtn = document.querySelector("#play");
+
+
 let humanScore = 0; 
 let computerScore = 0;
-playGame();
+playBtn.addEventListener("click", playGame);
