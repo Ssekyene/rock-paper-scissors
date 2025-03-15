@@ -87,5 +87,7 @@ let humanScore = 0;
 let computerScore = 0;
 playBtn.addEventListener("click", playGame);
 clearBtn.addEventListener("click", function () {
+    humanScore = 0;
+    computerScore = 0;
     console.clear();
 });
