@@ -80,13 +80,13 @@ function playGame() {
 }
 
 const playBtn = document.querySelector("#play");
-const clearBtn = document.querySelector("#clear");
+const resetBtn = document.querySelector("#reset");
 
 
 let humanScore = 0; 
 let computerScore = 0;
 playBtn.addEventListener("click", playGame);
-clearBtn.addEventListener("click", function () {
+resetBtn.addEventListener("click", function () {
     humanScore = 0;
     computerScore = 0;
     console.clear();
