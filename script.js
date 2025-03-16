@@ -37,6 +37,7 @@ function playRound(humanChoice, computerChoice) {
             computerScore++;
         }
         else console.log("%cIt's a tie", "font-size: 16px; font-weight: 900; color: orange");
+        return 0;
     } else if (humanSelection === "paper") {
         if (computerChoice === "scissors") {
             console.log("%cYou Lose! Scissors beat Paper", "font-size: 16px; font-weight: 900; color: red");
@@ -47,6 +48,7 @@ function playRound(humanChoice, computerChoice) {
             humanScore++;
         }
         else console.log("%cIt's a tie", "font-size: 16px; font-weight: 900; color: orange");
+        return 0;
     } else if (humanSelection === "scissors") {
         if (computerChoice === "paper") {
             console.log("%cYou Win! Scissors beat Paper", "font-size: 16px; font-weight: 900; color: green");
@@ -57,7 +59,11 @@ function playRound(humanChoice, computerChoice) {
             computerScore++;
         }
         else console.log("%cIt's a tie", "font-size: 16px; font-weight: 900; color: orange");
-    } else console.log("%cYou entered wrong spelling!", "font-size: 16px; font-weight: 900; color: red")
+        return 0;
+    } else {
+        console.log("%cYou entered wrong spelling! Replay the round", "font-size: 16px; font-weight: 900; color: yellow")
+        return 1;
+    }
 
 }
 
@@ -69,6 +75,7 @@ function printChoices(humanSelection, computerSelection) {
 executes 5 rounds of playRound and prints the overall results
 */
 function playGame() {    
+    let flag;
     for(let i = 0; i < 5; i++) {
         // check if one of the players has 3 scores and remaining rounds are 2
         if ((humanScore === 3 || computerScore === 3) &&
@@ -80,7 +87,9 @@ function playGame() {
             (humanScore === 2 || computerScore === 2) &&
             (humanScore === 0 || computerScore === 0) &&
             (5 - i) === 1) break;
-        playRound(getHumanChoice(), getComputerChoice());
+       flag = playRound(getHumanChoice(), getComputerChoice());
+       // repeat the round for wrong spelling
+       if (flag) i--;
     }
     if (humanScore > computerScore) console.log("%c\n\nCongratulations!!! You Won!", "font-size: 24px; font-weight: 900; color: green");
     else if (humanScore < computerScore) console.log("%c\n\nYou Lost", "font-size: 24px; font-weight: 900; color: red");
