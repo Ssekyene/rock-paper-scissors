@@ -70,6 +70,16 @@ executes 5 rounds of playRound and prints the overall results
 */
 function playGame() {    
     for(let i = 0; i < 5; i++) {
+        // check if one of the players has 3 scores and remaining rounds are 2
+        if ((humanScore === 3 || computerScore === 3) &&
+            (5 - i) === 2) break;
+        console.log(i);
+        // check if one of the players has 2 scores but not both
+        // and one of the players has no score sofar yet remaining with 1 round
+        if (!(humanScore === 2 && computerScore === 2) &&
+            (humanScore === 2 || computerScore === 2) &&
+            (humanScore === 0 || computerScore === 0) &&
+            (5 - i) === 1) break;
         playRound(getHumanChoice(), getComputerChoice());
     }
     if (humanScore > computerScore) console.log("%c\n\nCongratulations!!! You Won!", "font-size: 24px; font-weight: 900; color: green");
