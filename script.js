@@ -101,7 +101,7 @@ function playGame() {
 const playBtn = document.querySelector("#play");
 const resetBtn = document.querySelector("#reset");
 
-
+// global scope for game play
 let humanScore = 0; 
 let computerScore = 0;
 playBtn.addEventListener("click", playGame);
