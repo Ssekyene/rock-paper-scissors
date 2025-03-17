@@ -77,9 +77,9 @@ executes 5 rounds of playRound and prints the overall results
 function playGame() {    
     let flag;
     for(let i = 0; i < 5; i++) {
-        // check if one of the players has 3 scores and remaining rounds are 2
+        // check if one of the players has 3 scores and remaining rounds are 2 or less
         if ((humanScore === 3 || computerScore === 3) &&
-            (5 - i) === 2) break;
+            (5 - i) <= 2) break;
         // console.log(i);
         // check if one of the players has 2 scores but not both
         // and one of the players has no score sofar yet remaining with 1 round
