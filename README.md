@@ -1,5 +1,7 @@
 # PAPER, ROCK, SCISSORS
-![rock-paper-scissors snapshot](./rps-snap.png)
+[![rock-paper-scissors snapshot](./rps-snap.png)](https://ssekyene.github.io/rock-paper-scissors/)
+
+> _Click on the image above to play!_
 
 ## Description
 This game is played in the console(dev tools) eg use `CTRL + SHIFT + J` for chrome browser to open the console.
