@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPS</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <h1>ROCK, PAPER, SCISSORS</h1>
-    <P>Open the console (in the developers tools) eg (CTRL + SHIFT + J) for chrome browser and then click on the button below to play!</P>
-    <p>Each turn of play has a maximum of 5 rounds.</p>
-    <p>The game will end before finishing all rounds when one of the players is left with few rounds to make them either a win or a draw. eg When one hits 3 wins in 3 rounds, the other is left with 2 rounds and therefore has no chance to make it.</p>
-    <ul>
-        <li>Win - 1 point</li>
-        <li>Lose - no point</li>
-        <li>Draw - no point for each</li>
-    </ul>
-    <p><strong>Note:</strong> When you enter something wrong you replay the round!</p>
-    <p>To play more rounds, click the reset button and then the play button.</p>
-    <button id="play">Play</button>
-    <button id="reset">Reset</button>
-    
+    <div class="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="output"></div>
+
     <script src="./script.js"></script>
 </body>
 </html> 
