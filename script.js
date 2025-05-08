@@ -11,7 +11,7 @@ function getComputerChoice() {
 }
 
 
-
+/*** GLOBAL SCOPE OF THE GAME ****/
 const choices = document.querySelector('.choices');
 const output = document.querySelector('#output');
 
@@ -38,13 +38,6 @@ choices.addEventListener('click', e => {
   }
   output.appendChild(result);
 });
-/*
-returns a choice made by user
-*/
-function getHumanChoice(choice) { 
-  return choice;
-}
-
 
 
 /*
@@ -88,6 +81,10 @@ function playRound(humanChoice, computerChoice) {
 
 }
 
+
+/*
+prints the choices made by user and computer
+*/
 function printChoices(humanSelection, computerSelection) {
   const humanChoice = document.createElement('h3');
   const computerChoice = document.createElement('h3');
