@@ -18,42 +18,100 @@ const startBtn = document.querySelector('#start');
 const restartBtn = document.querySelector('#restart');
 let humanScore = 0;
 let computerScore = 0;
+const result = document.createElement('h2');
+const numberOfRounds = 5; // game is of 5 rounds
+let roundCount = 0;
+const rounds = document.querySelector('#rounds');
 
 startBtn.addEventListener('click', e => {
+  if (startBtn.textContent === 'STOP') displayWinner(humanScore, computerScore);
+  rounds.textContent = roundCount;
   humanScore = 0;
   computerScore = 0;
   choices.classList.toggle('hidden');
-  restartBtn.classList.toggle('hidden');
   startBtn.textContent = startBtn.textContent === "START" ? "STOP" : "START";
 });
 
+
 restartBtn.addEventListener('click', e => {
+  roundCount = 0;
+  rounds.textContent = roundCount;
+  restartBtn.classList.add('hidden');
+  startBtn.textContent = 'STOP';
+  startBtn.classList.remove('hidden');
+  choices.classList.remove('hidden');
   humanScore = 0;
   computerScore = 0;
   output.innerHTML = ""; // clear previous results
 });
+
+/**
+  Listen for user input through clicks
+ */
 choices.addEventListener('click', e => {
   // finding the choice made by user through event bubbling
   const humanChoice = e.target.id;
   let score = 0;
-  const result = document.createElement('h2');
 
+  rounds.textContent = ++roundCount;
   output.innerHTML = ""; // clear previous results
   score = playRound(humanChoice, getComputerChoice());
   if (score === 1) {
     humanScore++;
-    result.innerHTML = `You win! Your score: ${humanScore} Computer score: ${computerScore}`;
+    result.innerHTML = `<span class='win'>You win!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
   } else if (score === -1) {
     computerScore++;
-    result.innerHTML = `You lose! Your score: ${humanScore} Computer score: ${computerScore}`;
+    result.innerHTML = `<span class='lose'>You lose!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
   } else {
-    result.innerHTML = `It's a tie! Your score: ${humanScore} Computer score: ${computerScore}`;  
+    result.innerHTML = `<span class='tie'>It's a tie!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;  
   
   }
   output.appendChild(result);
+  getFinalResults();
+
 });
 
+    
+/***END GLOBAL SCOPE OF THE GAME ****/
+function getFinalResults() {
+  // check whether the rounds are done
+  if (roundCount >= numberOfRounds) {
+    displayWinner(humanScore, computerScore);
+    return 0;
+  }
+  // check if one of the players has 3 scores and remaining rounds are 2 or less
+  else if ((humanScore === 3 || computerScore === 3) && (numberOfRounds - roundCount) <= 2) {
+    displayWinner(humanScore, computerScore);
+    return 1;
+  }
+  // check if one of the players has 2 scores but not both
+  // and one of the players has no score sofar yet remaining with 1 round
+  else if (!(humanScore === 2 && computerScore === 2) &&
+    (humanScore === 2 || computerScore === 2) &&
+    (humanScore === 0 || computerScore === 0) &&
+    (numberOfRounds - roundCount) === 1) {
+      displayWinner(humanScore, computerScore);
+      return 1;
+    }
+  else return -1;
+}
 
+function displayWinner(humanScore, computerScore) {
+  restartBtn.classList.remove('hidden');
+  startBtn.classList.add('hidden');
+  choices.classList.add('hidden');
+  output.innerHTML = ''; // clear for final results display
+
+  if (humanScore > computerScore) {
+    result.innerHTML = `<span class='win'>You win!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+  } else if (humanScore < computerScore) {
+    result.innerHTML = `<span class='lose'>You lose!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+  } else {
+    result.innerHTML = `<span class='tie'>It's a tie!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+  }
+
+  output.appendChild(result);
+}
 /*
 compares the humanChoice and computerChoice
 and returns 1 if human wins, -1 if computer wins
