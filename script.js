@@ -14,10 +14,24 @@ function getComputerChoice() {
 /*** GLOBAL SCOPE OF THE GAME ****/
 const choices = document.querySelector('.choices');
 const output = document.querySelector('#output');
-
+const startBtn = document.querySelector('#start');
+const restartBtn = document.querySelector('#restart');
 let humanScore = 0;
 let computerScore = 0;
 
+startBtn.addEventListener('click', e => {
+  humanScore = 0;
+  computerScore = 0;
+  choices.classList.toggle('hidden');
+  restartBtn.classList.toggle('hidden');
+  startBtn.textContent = startBtn.textContent === "START" ? "STOP" : "START";
+});
+
+restartBtn.addEventListener('click', e => {
+  humanScore = 0;
+  computerScore = 0;
+  output.innerHTML = ""; // clear previous results
+});
 choices.addEventListener('click', e => {
   // finding the choice made by user through event bubbling
   const humanChoice = e.target.id;

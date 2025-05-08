@@ -1,3 +1,24 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+}
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    padding: 20px;
+}
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #555;
+}
+
 .win {
     font-size: 42px;
     font-weight: 900;
@@ -14,4 +35,30 @@
     font-size: 42px; 
     font-weight: 900; 
     color: orange;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
 }
