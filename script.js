@@ -11,109 +11,95 @@ function getComputerChoice() {
 }
 
 
+
+const choices = document.querySelector('.choices');
+const output = document.querySelector('#output');
+
+let humanScore = 0;
+let computerScore = 0;
+
+choices.addEventListener('click', e => {
+  // finding the choice made by user through event bubbling
+  const humanChoice = e.target.id;
+  let score = 0;
+  const result = document.createElement('h2');
+
+  output.innerHTML = ""; // clear previous results
+  score = playRound(humanChoice, getComputerChoice());
+  if (score === 1) {
+    humanScore++;
+    result.innerHTML = `You win! Your score: ${humanScore} Computer score: ${computerScore}`;
+  } else if (score === -1) {
+    computerScore++;
+    result.innerHTML = `You lose! Your score: ${humanScore} Computer score: ${computerScore}`;
+  } else {
+    result.innerHTML = `It's a tie! Your score: ${humanScore} Computer score: ${computerScore}`;  
+  
+  }
+  output.appendChild(result);
+});
 /*
 returns a choice made by user
 */
-function getHumanChoice() { 
-  return(prompt('Enter "rock", "paper" or "scissors":'));
+function getHumanChoice(choice) { 
+  return choice;
 }
 
 
 
 /*
 compares the humanChoice and computerChoice
-and prints the result to the console
+and returns 1 if human wins, -1 if computer wins
+and 0 if it's a tie
 */
 function playRound(humanChoice, computerChoice) {
   printChoices(humanChoice, computerChoice);
-  const humanSelection = humanChoice.toLowerCase();
-  const result = document.createElement('h2');
-if (humanSelection === "rock") {
+  if (humanChoice === "rock") {
     if (computerChoice === "scissors") {
-      result.className = 'win';
-      result.textContent = "You Win! Rock beats Scissors";
+      return 1;
     }
     else if (computerChoice === "paper") {
-      result.className = 'lose';
-      result.textContent = "You Lose! Paper beats Rock";
+      return -1;
     }
     else {
-      result.className = 'tie';
-      result.textContent = "It's a tie";
+      return 0;
     }
-    output.appendChild(result);
-    return 0;
-} else if (humanSelection === "paper") {
+  } else if (humanChoice === "paper") {
     if (computerChoice === "scissors") {
-      result.className = 'lose';
-      result.textContent = 'You Lose! Scissors beat Paper';
+      return -1;
     }
     else if (computerChoice === "rock") {
-      result.className = 'win';
-      result.textContent = 'You Win! Paper beats Rock';
+      return 1;
     }
     else {
-      result.className = 'tie';
-      result.textContent = "It's a tie";
+      return 0;
     }
-    output.appendChild(result);
-    return 0;
-} else if (humanSelection === "scissors") {
+  } else if (humanChoice === "scissors") {
     if (computerChoice === "paper") {
-      result.className = 'win';
-      result.textContent = 'You Win! Scissors beat Paper';
+      return 1;
     }
     else if (computerChoice === "rock") {
-      result.className = 'lose';
-      result.textContent = 'You Loose! Rock beats Scissors';
+      return -1;
     }
     else {
-      result.className = 'tie';
-      result.textContent = "It's a tie";
+      return 0;
     }
-    output.appendChild(result);
-    return 0;
-}
+  }
 
 }
 
 function printChoices(humanSelection, computerSelection) {
-  output.innerHTML = ""; // clear previous results
   const humanChoice = document.createElement('h3');
   const computerChoice = document.createElement('h3');
 
   humanChoice.textContent = `You: ${humanSelection}`;
-  output.appendChild(humanChoice);
   computerChoice.textContent = `Computer: ${computerSelection}`;
+  output.appendChild(humanChoice);
   output.appendChild(computerChoice);
 
 }
 
-/*
-executes 5 rounds of playRound and prints the overall results
-*/
-function playGame() {    
-  playRound(getHumanChoice(), getComputerChoice());
-}
 
-const choices = document.querySelector('.choices');
-const output = document.querySelector('#output');
-
-choices.addEventListener('click', e => {
-  // finding the choice made by user through event bubbling
-  const choice = e.target.id;
-    switch (choice) {
-      case 'rock':
-        playRound("rock", getComputerChoice());
-        break;
-      case 'paper':
-        playRound("paper", getComputerChoice());
-        break;
-      case 'scissors':
-        playRound("scissors", getComputerChoice());
-        break;
-    }
-});
 
 
 
