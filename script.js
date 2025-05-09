@@ -78,7 +78,8 @@ children.forEach(child => {
     rounds.textContent = ++roundCount;
     const humanChoice = e.target.parentNode.id;
     output.innerHTML = ""; // clear previous results
-    score = playRound(humanChoice, getComputerChoice());
+    const computerChoice = getComputerChoice();
+    score = playRound(humanChoice, computerChoice);
 
     if (score === 1) {
       // you win
@@ -94,7 +95,7 @@ children.forEach(child => {
     
     }
     output.appendChild(result);
-    getFinalResults();
+    getFinalResults(humanChoice, computerChoice);
   });
 });
   
@@ -121,15 +122,17 @@ function displayScores () {
 }
     
 
-function getFinalResults() {
+function getFinalResults(humanChoice, computerChoice) {
   // check whether the rounds are done
   if (roundCount >= numberOfRounds) {
     displayWinner(humanScore, computerScore);
+    printChoices(humanChoice, computerChoice);
     return 0;
   }
   // check if one of the players has 3 scores and remaining rounds are 2 or less
   else if ((humanScore === 3 || computerScore === 3) && (numberOfRounds - roundCount) <= 2) {
     displayWinner(humanScore, computerScore);
+    printChoices(humanChoice, computerChoice);
     return 1;
   }
   // check if one of the players has 2 scores but not both
@@ -139,6 +142,7 @@ function getFinalResults() {
     (humanScore === 0 || computerScore === 0) &&
     (numberOfRounds - roundCount) === 1) {
       displayWinner(humanScore, computerScore);
+      printChoices(humanChoice, computerChoice);
       return 1;
     }
   else return -1;
