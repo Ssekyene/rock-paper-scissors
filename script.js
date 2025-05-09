@@ -22,10 +22,14 @@ const result = document.createElement('h2');
 const numberOfRounds = 5; // game is of 5 rounds
 let roundCount = 0;
 const rounds = document.querySelector('#rounds');
+const continueBtn = document.querySelector('#continue');
 
 startBtn.addEventListener('click', e => {
+  // check if the control is either for
+  // starting or stopping the game
   if (startBtn.textContent === 'STOP') {
     choices.style.display = 'none';
+    continueBtn.classList.remove('hidden');
     displayWinner(humanScore, computerScore);
 
   } else {
@@ -44,6 +48,7 @@ restartBtn.addEventListener('click', e => {
   roundCount = 0;
   rounds.textContent = roundCount;
   restartBtn.classList.add('hidden');
+  continueBtn.classList.add('hidden');
   startBtn.textContent = 'STOP';
   startBtn.classList.remove('hidden');
   choices.style.display = 'flex';
@@ -52,6 +57,13 @@ restartBtn.addEventListener('click', e => {
   output.innerHTML = ""; // clear previous results
 });
 
+continueBtn.addEventListener('click', e => {
+  continueBtn.classList.add('hidden');
+  restartBtn.classList.add('hidden');
+  startBtn.classList.remove('hidden');
+  choices.style.display = 'flex';
+
+});
 /**
   Listen for user input through clicks
  */
@@ -83,31 +95,6 @@ children.forEach(child => {
   });
 });
   
-choices.addEventListener('click', e => {
-  // finding the choice made by user through event bubbling
-  const humanChoice = e.target.id;
-  let score = 0;
-
-  // check if the user clicked on a valid choice
-  if(humanChoice) {
-    rounds.textContent = ++roundCount;
-    output.innerHTML = ""; // clear previous results
-    score = playRound(humanChoice, getComputerChoice());
-    if (score === 1) {
-      humanScore++;
-      displayResult("You win!", 'win');
-    } else if (score === -1) {
-      computerScore++;
-      displayResult("You lose!", 'lose');
-    } else {
-      displayResult("It's a tie!", 'tie');  
-    
-    }
-    output.appendChild(result);
-    getFinalResults();
-  }
-
-});
 
 
 /***END GLOBAL SCOPE OF THE GAME ****/
@@ -149,7 +136,7 @@ function getFinalResults() {
 function displayWinner(humanScore, computerScore) {
   restartBtn.classList.remove('hidden');
   startBtn.classList.add('hidden');
-  choices.classList.add('hidden');
+  choices.style.display = 'none';
   output.innerHTML = ''; // clear for final results display
 
   if (humanScore > computerScore) {
