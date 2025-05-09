@@ -70,7 +70,7 @@ continueBtn.addEventListener('click', e => {
 
 const children = Array.from(choices.children);
 
-// loop through the children of choices
+// add a click listener to the choices
 children.forEach(child => {
   child.addEventListener('click', e => {
     let score = 0;
@@ -81,13 +81,16 @@ children.forEach(child => {
     score = playRound(humanChoice, getComputerChoice());
 
     if (score === 1) {
+      // you win
       humanScore++;
-      displayResult("You win!", 'win');
+      displayScores();
     } else if (score === -1) {
+      // you lose
       computerScore++;
-      displayResult("You lose!", 'lose');
+      displayScores();
     } else {
-      displayResult("It's a tie!", 'tie');  
+      // its a tie
+      displayScores();
     
     }
     output.appendChild(result);
@@ -103,6 +106,14 @@ children.forEach(child => {
 function displayResult(msg, cls) {
   result.innerHTML = `
   <div class='${cls} msg'>${msg}</div>
+  <div class="score">
+  <span>Your score: ${humanScore}</span>
+  <span>Computer score: ${computerScore}</span>
+  </div>`;
+}
+
+function displayScores () {
+  result.innerHTML = `
   <div class="score">
   <span>Your score: ${humanScore}</span>
   <span>Computer score: ${computerScore}</span>
