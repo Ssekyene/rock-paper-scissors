@@ -80,8 +80,8 @@ div button {
     text-align: center;
     margin-bottom: 20px;
 }
-.choices {
-    display: flex;
+#choices {
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 30px;
@@ -89,16 +89,17 @@ div button {
     width: 90%;
 }
 
-.choices > div {
+#choices > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    
+    transition: all 0.3s ease;
 }
 
-.choices > div:hover {
+#choices > div:hover {
+    transform: scale(1.1);
     cursor: pointer;
 }
 

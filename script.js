@@ -12,7 +12,7 @@ function getComputerChoice() {
 
 
 /*** GLOBAL SCOPE OF THE GAME ****/
-const choices = document.querySelector('.choices');
+const choices = document.querySelector('#choices');
 const output = document.querySelector('#output');
 const startBtn = document.querySelector('#start');
 const restartBtn = document.querySelector('#restart');
@@ -26,16 +26,17 @@ const rounds = document.querySelector('#rounds');
 startBtn.addEventListener('click', e => {
   if (startBtn.textContent === 'STOP') {
     choices.style.display = 'none';
-    rounds.classList.add('hidden');
     displayWinner(humanScore, computerScore);
 
+  } else {
+    rounds.textContent = roundCount;
+    humanScore = 0;
+    computerScore = 0;
+    rounds.classList.remove('hidden');
+    choices.style.display = 'flex';
+    startBtn.textContent = startBtn.textContent === "START" ? "STOP" : "START";
+
   }
-  rounds.textContent = roundCount;
-  humanScore = 0;
-  computerScore = 0;
-  rounds.classList.remove('hidden');
-  choices.classList.toggle('hidden');
-  startBtn.textContent = startBtn.textContent === "START" ? "STOP" : "START";
 });
 
 
@@ -45,8 +46,7 @@ restartBtn.addEventListener('click', e => {
   restartBtn.classList.add('hidden');
   startBtn.textContent = 'STOP';
   startBtn.classList.remove('hidden');
-  choices.classList.remove('hidden');
-  choices.style.display = '';
+  choices.style.display = 'flex';
   humanScore = 0;
   computerScore = 0;
   output.innerHTML = ""; // clear previous results
@@ -55,6 +55,34 @@ restartBtn.addEventListener('click', e => {
 /**
   Listen for user input through clicks
  */
+
+const children = Array.from(choices.children);
+
+// loop through the children of choices
+children.forEach(child => {
+  child.addEventListener('click', e => {
+    let score = 0;
+    // make a count
+    rounds.textContent = ++roundCount;
+    const humanChoice = e.target.parentNode.id;
+    output.innerHTML = ""; // clear previous results
+    score = playRound(humanChoice, getComputerChoice());
+
+    if (score === 1) {
+      humanScore++;
+      displayResult("You win!", 'win');
+    } else if (score === -1) {
+      computerScore++;
+      displayResult("You lose!", 'lose');
+    } else {
+      displayResult("It's a tie!", 'tie');  
+    
+    }
+    output.appendChild(result);
+    getFinalResults();
+  });
+});
+  
 choices.addEventListener('click', e => {
   // finding the choice made by user through event bubbling
   const humanChoice = e.target.id;
