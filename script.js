@@ -98,7 +98,15 @@ children.forEach(child => {
     getFinalResults(humanChoice, computerChoice);
   });
 });
-  
+
+// makes the page to scroll to the bottom to display
+// results. This is useful for small screens
+window.addEventListener('click', e => {
+  window.scrollTo({
+    top: document.body.scrollHeight, 
+    behavior: "smooth"
+  });
+});
 
 
 /***END GLOBAL SCOPE OF THE GAME ****/
