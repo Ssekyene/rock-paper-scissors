@@ -12,11 +12,18 @@ h1 {
     font-weight: 700;
     color: #333;
     padding: 20px;
+    text-align: center;
 }
 h2 {
     font-size: 20px;
     font-weight: 600;
     color: #555;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #777;
 }
 
 .win {
@@ -42,6 +49,8 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 70%;
+    margin: 0 auto;
 }
 
 div button {
@@ -55,10 +64,86 @@ div button {
     margin-top: 20px;
 }
 
+
+#rounds {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #007BFF;
+    margin: 5px;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px 0;
+}
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.choices {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.choices > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.choices > div:hover {
+    cursor: pointer;
+}
+
 .hidden {
     display: none;
 }
+#output {
+    width: 100%;
+}
 
-.show {
-    display: block;
+
+
+.score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.msg {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Horizontal, Vertical, Blur, Color */
+}
+.rock {
+    color: #FF5733;
+}
+.paper {
+    color: #0d8022;
+}
+.scissors {
+    color: #3357FF;
+}
+
+.description {
+    font-size: 18px;
+    color: #666;
+    text-align: center;
 }

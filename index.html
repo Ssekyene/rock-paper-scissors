@@ -10,18 +10,21 @@
 
 <body>
     <div class="container">
-        <h1>ROCK, PAPER, SCISSORS</h1>
+        <h1 class="title">
+            <span class="rock">ROCK</span> <span class="paper">PAPER</span> <span class="scissors">SCISSORS</span>
+        </h1>
+        <p class="description">A Game of 5 rounds!</p>
+        <div id="rounds" class="hidden"></div>
         <div class="controls">
-            <button id="start">START</button></div>
+            <button id="start">START</button>
             <button id="restart" class="hidden">RESTART</button>
-        <div class="choices hidden">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
         </div>
-        <div id="rounds"></div>
+        <div class="choices hidden">
+            <div><img src="images/rock.png" alt="rock-pic" width="120" id="rock"><span class="rock">Rock</span></div>
+            <div><img src="images/paper.png" alt="paper-pic" width="120"  id="paper"><span class="paper">Paper</span></div>
+            <div><img src="images/scissors.png" alt="scissors-pic" width="120" id="scissors"><span class="scissors">Scissors</span></div>
+        </div>
         <div id="output"></div>
-
     </div>
 
     <script src="./script.js"></script>

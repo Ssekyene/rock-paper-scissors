@@ -24,10 +24,16 @@ let roundCount = 0;
 const rounds = document.querySelector('#rounds');
 
 startBtn.addEventListener('click', e => {
-  if (startBtn.textContent === 'STOP') displayWinner(humanScore, computerScore);
+  if (startBtn.textContent === 'STOP') {
+    choices.style.display = 'none';
+    rounds.classList.add('hidden');
+    displayWinner(humanScore, computerScore);
+
+  }
   rounds.textContent = roundCount;
   humanScore = 0;
   computerScore = 0;
+  rounds.classList.remove('hidden');
   choices.classList.toggle('hidden');
   startBtn.textContent = startBtn.textContent === "START" ? "STOP" : "START";
 });
@@ -40,6 +46,7 @@ restartBtn.addEventListener('click', e => {
   startBtn.textContent = 'STOP';
   startBtn.classList.remove('hidden');
   choices.classList.remove('hidden');
+  choices.style.display = '';
   humanScore = 0;
   computerScore = 0;
   output.innerHTML = ""; // clear previous results
@@ -53,26 +60,41 @@ choices.addEventListener('click', e => {
   const humanChoice = e.target.id;
   let score = 0;
 
-  rounds.textContent = ++roundCount;
-  output.innerHTML = ""; // clear previous results
-  score = playRound(humanChoice, getComputerChoice());
-  if (score === 1) {
-    humanScore++;
-    result.innerHTML = `<span class='win'>You win!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
-  } else if (score === -1) {
-    computerScore++;
-    result.innerHTML = `<span class='lose'>You lose!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
-  } else {
-    result.innerHTML = `<span class='tie'>It's a tie!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;  
-  
+  // check if the user clicked on a valid choice
+  if(humanChoice) {
+    rounds.textContent = ++roundCount;
+    output.innerHTML = ""; // clear previous results
+    score = playRound(humanChoice, getComputerChoice());
+    if (score === 1) {
+      humanScore++;
+      displayResult("You win!", 'win');
+    } else if (score === -1) {
+      computerScore++;
+      displayResult("You lose!", 'lose');
+    } else {
+      displayResult("It's a tie!", 'tie');  
+    
+    }
+    output.appendChild(result);
+    getFinalResults();
   }
-  output.appendChild(result);
-  getFinalResults();
 
 });
 
-    
+
 /***END GLOBAL SCOPE OF THE GAME ****/
+
+
+function displayResult(msg, cls) {
+  result.innerHTML = `
+  <div class='${cls} msg'>${msg}</div>
+  <div class="score">
+  <span>Your score: ${humanScore}</span>
+  <span>Computer score: ${computerScore}</span>
+  </div>`;
+}
+    
+
 function getFinalResults() {
   // check whether the rounds are done
   if (roundCount >= numberOfRounds) {
@@ -103,11 +125,11 @@ function displayWinner(humanScore, computerScore) {
   output.innerHTML = ''; // clear for final results display
 
   if (humanScore > computerScore) {
-    result.innerHTML = `<span class='win'>You win!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+    displayResult("You win!", 'win');
   } else if (humanScore < computerScore) {
-    result.innerHTML = `<span class='lose'>You lose!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+    displayResult("You lose!", 'lose');
   } else {
-    result.innerHTML = `<span class='tie'>It's a tie!</span> - Your score: ${humanScore} - Computer score: ${computerScore}`;
+    displayResult("It's a tie!", 'tie');
   }
 
   output.appendChild(result);
@@ -161,8 +183,8 @@ function printChoices(humanSelection, computerSelection) {
   const humanChoice = document.createElement('h3');
   const computerChoice = document.createElement('h3');
 
-  humanChoice.textContent = `You: ${humanSelection}`;
-  computerChoice.textContent = `Computer: ${computerSelection}`;
+  humanChoice.innerHTML = `You: <span class="${humanSelection}">${humanSelection}</span>`;
+  computerChoice.innerHTML = `Computer: <span class="${computerSelection}">${computerSelection}</span>`;
   output.appendChild(humanChoice);
   output.appendChild(computerChoice);
 
